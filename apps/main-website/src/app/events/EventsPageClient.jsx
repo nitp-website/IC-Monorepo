@@ -3,16 +3,18 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { motion } from 'motion/react';
 import GlassCard from '@/components/ui/GlassCard';
 import Badge from '@/components/ui/Badge';
-import { CalendarIcon, LocationIcon } from '@/components/icons';
+import { CalendarIcon, LocationIcon, ExpandIcon } from '@/components/icons';
 import { getOptimizedCloudinaryUrl } from '@/utils/cloudinary';
 
 const CATEGORIES = ['All', 'Competition', 'Workshop', 'Conclave', 'Summit', 'Investor Connect'];
 
 export default function EventsPageClient({ events = [] }) {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const router = useRouter();
 
   const filteredEvents =
     selectedCategory === 'All'
@@ -49,7 +51,7 @@ export default function EventsPageClient({ events = [] }) {
             transition={{ duration: 0.4, delay: index * 0.05 }}
             className="w-full max-w-[380px] h-full"
           >
-            <Link href={`/events/${event.id}`} className="block h-full">
+            <div onClick={() => router.push(`/events/${event.id}`)} className="block h-full cursor-pointer">
               <GlassCard
                 className="flex flex-col justify-between h-full overflow-hidden p-0 rounded-2xl group border border-white/10 hover:border-[#0ef]/60 hover:shadow-[0_0_30px_rgba(0,238,255,0.22)] transition-all duration-300 cursor-pointer"
                 hoverEffect={true}
@@ -78,10 +80,20 @@ export default function EventsPageClient({ events = [] }) {
                     </Badge>
                   </div>
 
-                  <div className="absolute top-4 right-4">
-                    <span className="text-[0.7rem] font-mono font-bold text-white bg-black/60 px-2.5 py-1 rounded-full border border-white/10 backdrop-blur-md">
+                  <div className="absolute top-4 right-4 flex gap-2">
+                    <span className="text-[0.7rem] font-mono font-bold text-white bg-black/60 px-2.5 py-1 rounded-full border border-white/10 backdrop-blur-md flex items-center">
                       {event.mode || 'In-Person'}
                     </span>
+                    <a
+                      href={event.image}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="w-7 h-7 rounded-full bg-black/60 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-[#0ef]/20 hover:text-[#0ef] hover:border-[#0ef]/40 transition-all shadow-lg group/btn"
+                      title="View Full Poster"
+                    >
+                      <ExpandIcon className="w-3 h-3 group-hover/btn:scale-110 transition-transform" />
+                    </a>
                   </div>
                 </div>
 
@@ -116,7 +128,7 @@ export default function EventsPageClient({ events = [] }) {
                   </div>
                 </div>
               </GlassCard>
-            </Link>
+            </div>
           </motion.div>
         ))}
       </div>

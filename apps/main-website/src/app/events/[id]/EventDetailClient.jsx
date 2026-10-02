@@ -13,6 +13,7 @@ import {
   LocationIcon,
   CheckIcon,
   ShareIcon,
+  ExpandIcon,
 } from '@/components/icons';
 
 export default function EventDetailClient({ event }) {
@@ -41,22 +42,33 @@ export default function EventDetailClient({ event }) {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#040810] via-[#040810]/45 to-transparent" />
 
-          <div className="absolute top-6 left-6 right-6 flex items-center justify-between gap-3 z-10">
+          <div className="absolute top-6 left-6 right-6 flex items-center justify-between gap-3 z-20">
             <Badge variant="cyan">{event.category}</Badge>
 
-            {event.status && (
-              <span
-                className={`px-3.5 py-1 rounded-full text-xs font-semibold tracking-wide border backdrop-blur-md ${
-                  event.status === 'Upcoming'
-                    ? 'bg-[#0ef]/15 text-[#0ef] border-[#0ef]/40 shadow-[0_0_12px_rgba(0,238,255,0.2)]'
-                    : event.status === 'Ongoing'
-                    ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/40'
-                    : 'bg-white/10 text-white/70 border-white/15'
-                }`}
+            <div className="flex items-center gap-2">
+              {event.status && (
+                <span
+                  className={`px-3.5 py-1 rounded-full text-xs font-semibold tracking-wide border backdrop-blur-md ${
+                    event.status === 'Upcoming'
+                      ? 'bg-[#0ef]/15 text-[#0ef] border-[#0ef]/40 shadow-[0_0_12px_rgba(0,238,255,0.2)]'
+                      : event.status === 'Ongoing'
+                      ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/40'
+                      : 'bg-white/10 text-white/70 border-white/15'
+                  }`}
+                >
+                  {event.status} Event
+                </span>
+              )}
+              <a
+                href={event.image}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-black/50 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-[#0ef]/20 hover:text-[#0ef] hover:border-[#0ef]/40 transition-all shadow-lg group/btn"
+                title="View Full Poster"
               >
-                {event.status} Event
-              </span>
-            )}
+                <ExpandIcon className="w-3.5 h-3.5 group-hover/btn:scale-110 transition-transform" />
+              </a>
+            </div>
           </div>
 
           <div className="absolute bottom-6 left-6 right-6 z-10 max-w-[880px]">
@@ -238,6 +250,7 @@ export default function EventDetailClient({ event }) {
                   </>
                 )}
               </button>
+
             </div>
           </GlassCard>
         </div>
