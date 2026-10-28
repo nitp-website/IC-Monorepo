@@ -1,5 +1,14 @@
 export const NOTICES_DATA = [
   {
+    id: 'notice-3',
+    title: 'Evaluation meeting KIBI Sports Pvt. Ltd.',
+    description: "The 7th Evaluation and recommendation committee (Start-up) meeting will be held on 28th October 2026 (Wednesday) with KIBI Sports Pvt. Ltd. at 4:30 PM in online mode at conference hall, ECE department, NIT Patna.",
+    date: '27 October\'26',
+    url: '/notices/notice-NITP-IC-2026-N-007.pdf',
+    isPinned: true,
+  },
+
+  {
     id: 'notice-2',
     title: 'PITCHVERSE (event) Completed',
     description: 'The Pitchverse event has successfully concluded. Thank you to all the sponsors and participants.',

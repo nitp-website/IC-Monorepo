@@ -35,6 +35,24 @@ export const FACULTY_TEAM_DATA = {
       about:
         'Merging future tech with purposeful leadership—pioneering advances in IoT, AI, and communication to empower innovation. Shaping ecosystems where technology meets entrepreneurship.',
     },
+    {
+      id: 'fac-mentor-6',
+      name: 'Dr. Bhabani Shankar Das',
+      post: 'Co PI Patna',
+      image: `${CLOUDINARY_BASE_URL}/v1782901327/dr_bhabani_rgkdjg.jpg`,
+      email: 'bsd.ce@nitp.ac.in',
+      about:
+        'Blending research with real-world purpose—driving excellence in river modeling and water systems with clarity, precision, and vision.',
+    },
+    {
+      id: 'fac-mentor-9',
+      name: 'Dr. Richa Aggarwal',
+      post: 'Co PI Bihta',
+      image: `${CLOUDINARY_BASE_URL}/v1782901329/richa_mam_iinww3.jpg`,
+      email: 'richa.ec@nitp.ac.in',
+      about:
+        'Turning innovation with purpose — advancing Wireless Networks, Security, Quantum Computing, and IoT to connect and empower our future.',
+    },
   ],
   mentors: [
     {
@@ -83,15 +101,6 @@ export const FACULTY_TEAM_DATA = {
         'Shaping the future of connectivity — advancing Wireless Communications, IoT, Optical Technologies, and Photonics to build smarter and more resilient systems.',
     },
     {
-      id: 'fac-mentor-6',
-      name: 'Dr. Bhabani Shankar Das',
-      post: 'Faculty Mentor',
-      image: `${CLOUDINARY_BASE_URL}/v1782901327/dr_bhabani_rgkdjg.jpg`,
-      email: 'bsd.ce@nitp.ac.in',
-      about:
-        'Blending research with real-world purpose—driving excellence in river modeling and water systems with clarity, precision, and vision.',
-    },
-    {
       id: 'fac-mentor-7',
       name: 'Dr. Anushree Tripathi',
       post: 'Faculty Mentor',
@@ -108,15 +117,6 @@ export const FACULTY_TEAM_DATA = {
       email: 'meenap.ec@nitp.ac.in',
       about:
         'Merging deep expertise with passionate guidance — advancing Transistor and Transconductance research to empower innovation.',
-    },
-    {
-      id: 'fac-mentor-9',
-      name: 'Dr. Richa Aggarwal',
-      post: 'Faculty Mentor',
-      image: `${CLOUDINARY_BASE_URL}/v1782901329/richa_mam_iinww3.jpg`,
-      email: 'richa.ec@nitp.ac.in',
-      about:
-        'Turning innovation with purpose — advancing Wireless Networks, Security, Quantum Computing, and IoT to connect and empower our future.',
     },
   ],
   pastFaculty: [
