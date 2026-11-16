@@ -38,7 +38,7 @@ export const NAV_LINKS = [
     children: [
       { label: 'Student Team', href: '/team/members' },
       { label: 'Faculty & Advisors', href: '/team/faculty' },
-      { label: 'Past Office Bearers', href: '/team/office-bearer' },
+      { label: 'Office Bearers', href: '/team/office-bearer' },
     ],
   },
 ];

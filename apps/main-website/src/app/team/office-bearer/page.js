@@ -1,109 +1,228 @@
 'use client';
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useMemo } from 'react';
+import { motion } from 'motion/react';
 import MemberCard from '@/components/team/MemberCard';
-import { PAST_OFFICE_BEARERS_DATA } from '@/constants/team';
+import TeamSectionGrid from '@/components/team/TeamSectionGrid';
+import { OFFICE_BEARERS_DATA } from '@/constants/team';
 
-export default function PastOfficeBearersPage() {
-  const [selectedSession, setSelectedSession] = useState('all');
+/**
+ * Strict hierarchy rank: Lead (1) > Co-Lead (2) > Senior Member (3) > Other (4)
+ */
+function getPostRank(post = '') {
+  const p = (post || '').toLowerCase().trim();
+  if (
+    p.includes('co-lead') ||
+    p.includes('co lead') ||
+    p.includes('colead') ||
+    p.includes('co-coordinator') ||
+    p.includes('cocoordinator')
+  ) {
+    return 2;
+  }
+  if (
+    p.includes('lead') ||
+    p.includes('head') ||
+    p.includes('secretary') ||
+    p.includes('coordinator') ||
+    p.includes('president')
+  ) {
+    return 1;
+  }
+  if (p.includes('senior')) {
+    return 3;
+  }
+  return 4;
+}
 
-  // Sort sessions in descending order by year
-  const sortedSessions = [...PAST_OFFICE_BEARERS_DATA].sort((prev, next) => {
-    const yearA = parseInt(prev.year?.split('-')[0], 10) || 0;
-    const yearB = parseInt(next.year?.split('-')[0], 10) || 0;
-    return yearB - yearA;
-  });
+function sortByPostOrder(members = []) {
+  return [...members].sort((a, b) => getPostRank(a.post) - getPostRank(b.post));
+}
 
-  const availableYears = sortedSessions.map((s) => s.year).filter(Boolean);
+export default function OfficeBearersPage() {
+  const allMembers = Array.isArray(OFFICE_BEARERS_DATA) ? OFFICE_BEARERS_DATA : [];
 
-  const displayedSessions =
-    selectedSession === 'all'
-      ? sortedSessions
-      : sortedSessions.filter((s) => s.year === selectedSession);
+  // Group members by domain with strict rank order (Lead > Co-Lead > Senior Member)
+  // Leadership excludes Senior Members (Senior members belong to their respective teams)
+  const leadershipMembers = useMemo(
+    () =>
+      sortByPostOrder(
+        allMembers.filter((m) => {
+          const post = (m.post || '').toLowerCase();
+          const team = (m.team || '').toLowerCase();
+          return (
+            (post.includes('secretary') ||
+              (!team && !post.includes('lead') && !post.includes('senior'))) &&
+            !post.includes('senior')
+          );
+        })
+      ),
+    [allMembers]
+  );
+
+  const technicalMembers = useMemo(
+    () =>
+      sortByPostOrder(
+        allMembers.filter(
+          (m) =>
+            (m.team || '').toLowerCase() === 'technical' ||
+            (m.post || '').toLowerCase().includes('technical')
+        )
+      ),
+    [allMembers]
+  );
+
+  const webMembers = useMemo(
+    () =>
+      sortByPostOrder(
+        allMembers.filter(
+          (m) =>
+            (m.team || '').toLowerCase() === 'web' ||
+            (m.post || '').toLowerCase().includes('web')
+        )
+      ),
+    [allMembers]
+  );
+
+  const designMembers = useMemo(
+    () =>
+      sortByPostOrder(
+        allMembers.filter(
+          (m) =>
+            (m.team || '').toLowerCase() === 'design' ||
+            (m.post || '').toLowerCase().includes('design')
+        )
+      ),
+    [allMembers]
+  );
+
+  const mediaMembers = useMemo(
+    () =>
+      sortByPostOrder(
+        allMembers.filter(
+          (m) =>
+            (m.team || '').toLowerCase() === 'media' ||
+            (m.post || '').toLowerCase().includes('media')
+        )
+      ),
+    [allMembers]
+  );
+
+  const prMembers = useMemo(
+    () =>
+      sortByPostOrder(
+        allMembers.filter(
+          (m) =>
+            (m.team || '').toLowerCase() === 'pr' ||
+            (m.post || '').toLowerCase().includes('pr')
+        )
+      ),
+    [allMembers]
+  );
+
+  const contentMembers = useMemo(
+    () =>
+      sortByPostOrder(
+        allMembers.filter(
+          (m) =>
+            (m.team || '').toLowerCase() === 'content' ||
+            (m.post || '').toLowerCase().includes('content')
+        )
+      ),
+    [allMembers]
+  );
+
+  const eventMembers = useMemo(
+    () =>
+      sortByPostOrder(
+        allMembers.filter(
+          (m) =>
+            (m.team || '').toLowerCase() === 'event' ||
+            (m.post || '').toLowerCase().includes('event')
+        )
+      ),
+    [allMembers]
+  );
 
   return (
     <div className="w-full flex flex-col items-center">
+      {/* Header Banner */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-8 max-w-[800px]"
+        className="text-center mb-12 max-w-[800px] px-4"
       >
         <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
           Honouring <span className="text-[#0ef]">Office Bearers</span>
         </h2>
       </motion.div>
-      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-12 max-w-[900px] px-4">
-        <button
-          onClick={() => setSelectedSession('all')}
-          className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors cursor-pointer ${selectedSession === 'all'
-            ? 'bg-[#00f7ff] text-[#020712] font-semibold'
-            : 'bg-white/5 text-white/75 hover:text-white hover:bg-white/10 border border-white/10'
-            }`}
-        >
-          All Sessions
-        </button>
 
-        {availableYears.map((year) => {
-          const isSelected = selectedSession === year;
+      {/* Main Content Presentation */}
+      <div className="w-full flex flex-col items-center">
+        {leadershipMembers.length > 0 && (
+          <TeamSectionGrid title="Executive & Leadership">
+            {leadershipMembers.map((info, idx) => (
+              <MemberCard key={`lead-${idx}`} info={info} />
+            ))}
+          </TeamSectionGrid>
+        )}
 
-          return (
-            <button
-              key={year}
-              onClick={() => setSelectedSession(year)}
-              className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors cursor-pointer ${isSelected
-                ? 'bg-[#00f7ff] text-[#020712] font-semibold'
-                : 'bg-white/5 text-white/75 hover:text-white hover:bg-white/10 border border-white/10'
-                }`}
-            >
-              Session {year}
-            </button>
-          );
-        })}
-      </div>
+        {technicalMembers.length > 0 && (
+          <TeamSectionGrid title="Technical Team">
+            {technicalMembers.map((info, idx) => (
+              <MemberCard key={`tech-${idx}`} info={info} />
+            ))}
+          </TeamSectionGrid>
+        )}
 
-      <div className="flex flex-col gap-16 w-full max-w-[1240px]">
-        <AnimatePresence mode="wait">
-          {displayedSessions.map((session, sessionIdx) => (
-            <motion.div
-              key={session.year || sessionIdx}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.35 }}
-              className="flex flex-col items-center w-full"
-            >
-              <div className="flex items-center justify-center gap-4 mb-8 w-full max-w-[700px] px-4">
-                <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-[#0ef]/40" />
-                <span className="text-base sm:text-lg font-bold tracking-wider uppercase text-white shrink-0">
-                  Session {session.year}
-                </span>
-                <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#0ef]/40" />
-              </div>
+        {webMembers.length > 0 && (
+          <TeamSectionGrid title="Web Team">
+            {webMembers.map((info, idx) => (
+              <MemberCard key={`web-${idx}`} info={info} />
+            ))}
+          </TeamSectionGrid>
+        )}
 
-              <div className="flex flex-col gap-10 w-full items-center">
-                {session.sections.map((section, sectionIdx) => (
-                  <div key={sectionIdx} className="w-full flex flex-col items-center">
-                    <div className="flex items-center justify-center gap-4 mb-6 w-full max-w-[600px] px-4">
-                      <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-white/20" />
-                      <h3 className="text-base sm:text-lg font-semibold text-white/90 text-center shrink-0 px-3">
-                        {section.title}
-                      </h3>
-                      <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-white/20" />
-                    </div>
+        {designMembers.length > 0 && (
+          <TeamSectionGrid title="Design Team">
+            {designMembers.map((info, idx) => (
+              <MemberCard key={`design-${idx}`} info={info} />
+            ))}
+          </TeamSectionGrid>
+        )}
 
-                    <div className="flex flex-wrap justify-center gap-6 sm:gap-8 w-full">
-                      {section.members.map((member, memberIdx) => (
-                        <MemberCard key={memberIdx} info={member} isPast={true} />
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </AnimatePresence>
+        {mediaMembers.length > 0 && (
+          <TeamSectionGrid title="Media Team">
+            {mediaMembers.map((info, idx) => (
+              <MemberCard key={`media-${idx}`} info={info} />
+            ))}
+          </TeamSectionGrid>
+        )}
+
+        {prMembers.length > 0 && (
+          <TeamSectionGrid title="PR & Outreach Team">
+            {prMembers.map((info, idx) => (
+              <MemberCard key={`pr-${idx}`} info={info} />
+            ))}
+          </TeamSectionGrid>
+        )}
+
+        {contentMembers.length > 0 && (
+          <TeamSectionGrid title="Content Team">
+            {contentMembers.map((info, idx) => (
+              <MemberCard key={`content-${idx}`} info={info} />
+            ))}
+          </TeamSectionGrid>
+        )}
+
+        {eventMembers.length > 0 && (
+          <TeamSectionGrid title="Event Team">
+            {eventMembers.map((info, idx) => (
+              <MemberCard key={`event-${idx}`} info={info} />
+            ))}
+          </TeamSectionGrid>
+        )}
       </div>
     </div>
   );

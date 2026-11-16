@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'motion/react';
 import Badge from '@/components/ui/Badge';
-import { GitHubIcon, LinkedInIcon, InstagramIcon } from '@/components/icons';
+import { GitHubIcon, LinkedInIcon, InstagramIcon, GmailIcon } from '@/components/icons';
 import { getOptimizedCloudinaryUrl } from '@/utils/cloudinary';
 
 export default function MemberCard({ info, isPast = false }) {
@@ -14,6 +14,7 @@ export default function MemberCard({ info, isPast = false }) {
   const hasGithub = Boolean(info.github && info.github !== '#');
   const hasLinkedin = Boolean(info.linkedin && info.linkedin !== '#');
   const hasInstagram = Boolean(info.instagram && info.instagram !== '#');
+  const hasEmail = Boolean(info.email && info.email !== '#');
 
   return (
     <motion.div
@@ -65,12 +66,29 @@ export default function MemberCard({ info, isPast = false }) {
       )}
 
       <h3
-        className={`text-lg sm:text-xl font-bold text-white mb-2 transition-colors ${
+        className={`text-lg sm:text-xl font-bold text-white mb-1 transition-colors ${
           isPast ? 'group-hover:text-purple-300' : 'group-hover:text-[#0ef]'
         }`}
       >
         {info.name}
       </h3>
+
+      {info.department && (
+        <span className="text-[0.72rem] text-white/50 mb-2 font-medium tracking-wide">
+          {info.department}
+        </span>
+      )}
+
+      {info.email && (
+        <a
+          href={`mailto:${info.email}`}
+          className="inline-flex items-center gap-1.5 text-xs text-white/70 hover:text-[#0ef] mb-3 px-3 py-1 rounded-full bg-white/5 border border-white/10 hover:border-[#0ef]/40 transition-colors max-w-full group/email"
+          title={info.email}
+        >
+          <GmailIcon className="w-3.5 h-3.5 text-[#ea4335] shrink-0" />
+          <span className="truncate text-[0.72rem] font-mono">{info.email}</span>
+        </a>
+      )}
 
       {info.about && (
         <p className="text-xs sm:text-sm text-white/70 leading-relaxed mb-4 flex-grow line-clamp-4">
@@ -78,7 +96,7 @@ export default function MemberCard({ info, isPast = false }) {
         </p>
       )}
 
-      {(hasGithub || hasLinkedin || hasInstagram) && (
+      {(hasGithub || hasLinkedin || hasInstagram || hasEmail) && (
         <div className="mt-auto flex items-center justify-center gap-3 pt-2">
           {hasGithub && (
             <a
@@ -111,6 +129,18 @@ export default function MemberCard({ info, isPast = false }) {
               className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-[#e4405f] hover:border-[#e4405f]/60 hover:bg-[#e4405f]/15 transition-all duration-200 shadow-md"
             >
               <InstagramIcon className="w-4 h-4" />
+            </a>
+          )}
+          {hasEmail && (
+            <a
+              href={`mailto:${info.email}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Email ${info.name}`}
+              title={info.email}
+              className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-[#ea4335] hover:border-[#ea4335]/60 hover:bg-[#ea4335]/15 transition-all duration-200 shadow-md"
+            >
+              <GmailIcon className="w-4 h-4" />
             </a>
           )}
         </div>

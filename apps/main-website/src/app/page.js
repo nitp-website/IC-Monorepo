@@ -22,7 +22,7 @@ import {
 } from '@/services/dataService';
 
 export const metadata = {
-  title: 'Home | Incubation Center, NIT Patna',
+  title: 'Incubation Center, NIT Patna',
   description:
     'Discover startups, mentorship programs, seed funding guidance, Pitchtember events, and prototyping labs at Incubation Center NIT Patna.',
 };

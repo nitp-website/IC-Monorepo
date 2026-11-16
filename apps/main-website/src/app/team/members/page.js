@@ -18,6 +18,39 @@ const FILTER_OPTIONS = [
   { id: 'pastMembers', label: 'Past Members' },
 ];
 
+/**
+ * Strict hierarchy rank: Lead (1) > Co-Lead (2) > Senior Member (3) > Other (4)
+ */
+function getPostRank(post = '') {
+  const p = (post || '').toLowerCase().trim();
+  if (
+    p.includes('co-lead') ||
+    p.includes('co lead') ||
+    p.includes('colead') ||
+    p.includes('co-coordinator') ||
+    p.includes('cocoordinator')
+  ) {
+    return 2;
+  }
+  if (
+    p.includes('lead') ||
+    p.includes('head') ||
+    p.includes('coordinator') ||
+    p.includes('secretary') ||
+    p.includes('president')
+  ) {
+    return 1;
+  }
+  if (p.includes('senior')) {
+    return 3;
+  }
+  return 4;
+}
+
+function sortByPostOrder(members = []) {
+  return [...members].sort((a, b) => getPostRank(a.post) - getPostRank(b.post));
+}
+
 export default function StudentTeamPage() {
   const [selectedFilter, setSelectedFilter] = useState('all');
 
@@ -33,48 +66,48 @@ export default function StudentTeamPage() {
 
   const showAll = selectedFilter === 'all';
 
-  // Grouping active members by functional domains
-  const executiveMembers = [
+  // Grouping active members by functional domains in strict Lead > Co-Lead > Senior Member order
+  const executiveMembers = sortByPostOrder([
     ...(coordinators || []),
     ...(cocoordinators || []),
     ...(secretaries || []),
-  ];
+  ]);
 
-  const webMembers = [
-    ...(committeeCoordinators || []).filter((m) => m.post?.toLowerCase().includes('web')),
-    ...(coLeads || []).filter((m) => m.post?.toLowerCase().includes('web')),
+  const webMembers = sortByPostOrder([
     ...(leads || []).filter((m) => m.post?.toLowerCase().includes('web')),
-  ];
+    ...(coLeads || []).filter((m) => m.post?.toLowerCase().includes('web')),
+    ...(committeeCoordinators || []).filter((m) => m.post?.toLowerCase().includes('web')),
+  ]);
 
-  const technicalMembers = [
-    ...(committeeCoordinators || []).filter((m) => m.post?.toLowerCase().includes('technical')),
-    ...(coLeads || []).filter((m) => m.post?.toLowerCase().includes('technical')),
+  const technicalMembers = sortByPostOrder([
     ...(leads || []).filter((m) => m.post?.toLowerCase().includes('technical')),
-  ];
+    ...(coLeads || []).filter((m) => m.post?.toLowerCase().includes('technical')),
+    ...(committeeCoordinators || []).filter((m) => m.post?.toLowerCase().includes('technical')),
+  ]);
 
-  const designMembers = [
-    ...(committeeCoordinators || []).filter((m) => m.post?.toLowerCase().includes('design')),
-    ...(coLeads || []).filter((m) => m.post?.toLowerCase().includes('design')),
+  const designMembers = sortByPostOrder([
     ...(leads || []).filter((m) => m.post?.toLowerCase().includes('design')),
-  ];
+    ...(coLeads || []).filter((m) => m.post?.toLowerCase().includes('design')),
+    ...(committeeCoordinators || []).filter((m) => m.post?.toLowerCase().includes('design')),
+  ]);
 
-  const mediaMembers = [
-    ...(committeeCoordinators || []).filter((m) => m.post?.toLowerCase().includes('media')),
-    ...(coLeads || []).filter((m) => m.post?.toLowerCase().includes('media')),
+  const mediaMembers = sortByPostOrder([
     ...(leads || []).filter((m) => m.post?.toLowerCase().includes('media')),
-  ];
+    ...(coLeads || []).filter((m) => m.post?.toLowerCase().includes('media')),
+    ...(committeeCoordinators || []).filter((m) => m.post?.toLowerCase().includes('media')),
+  ]);
 
-  const prContentMembers = [
-    ...(committeeCoordinators || []).filter((m) => m.post?.toLowerCase().includes('pr') || m.post?.toLowerCase().includes('content')),
-    ...(coLeads || []).filter((m) => m.post?.toLowerCase().includes('pr') || m.post?.toLowerCase().includes('content')),
+  const prContentMembers = sortByPostOrder([
     ...(leads || []).filter((m) => m.post?.toLowerCase().includes('pr') || m.post?.toLowerCase().includes('content')),
-  ];
+    ...(coLeads || []).filter((m) => m.post?.toLowerCase().includes('pr') || m.post?.toLowerCase().includes('content')),
+    ...(committeeCoordinators || []).filter((m) => m.post?.toLowerCase().includes('pr') || m.post?.toLowerCase().includes('content')),
+  ]);
 
-  const eventCoreMembers = [
-    ...(committeeCoordinators || []).filter((m) => m.post?.toLowerCase().includes('event') || m.post?.toLowerCase().includes('core')),
-    ...(coLeads || []).filter((m) => m.post?.toLowerCase().includes('event') || m.post?.toLowerCase().includes('core')),
+  const eventCoreMembers = sortByPostOrder([
     ...(leads || []).filter((m) => m.post?.toLowerCase().includes('event') || m.post?.toLowerCase().includes('core')),
-  ];
+    ...(coLeads || []).filter((m) => m.post?.toLowerCase().includes('event') || m.post?.toLowerCase().includes('core')),
+    ...(committeeCoordinators || []).filter((m) => m.post?.toLowerCase().includes('event') || m.post?.toLowerCase().includes('core')),
+  ]);
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -97,11 +130,10 @@ export default function StudentTeamPage() {
             <button
               key={opt.id}
               onClick={() => setSelectedFilter(opt.id)}
-              className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors cursor-pointer ${
-                isSelected
-                  ? 'bg-[#00f7ff] text-[#020712] font-semibold'
-                  : 'bg-white/5 text-white/75 hover:text-white hover:bg-white/10 border border-white/10'
-              }`}
+              className={`px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-colors cursor-pointer ${isSelected
+                ? 'bg-[#00f7ff] text-[#020712] font-semibold'
+                : 'bg-white/5 text-white/75 hover:text-white hover:bg-white/10 border border-white/10'
+                }`}
             >
               {opt.label}
             </button>

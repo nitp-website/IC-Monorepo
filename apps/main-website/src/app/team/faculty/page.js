@@ -37,7 +37,7 @@ export default function FacultyTeamPage() {
             </span>
             <div className="h-[1px] flex-1 bg-gradient-to-l from-transparent to-[#0ef]/40" />
           </div>
-          <div className="flex justify-center w-full">
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-8 w-full max-w-[1240px]">
             {head.map((info, idx) => (
               <FacultyCard key={info.id || idx} info={info} isHead={true} />
             ))}
