@@ -26,12 +26,6 @@ export default function sitemap() {
       priority: 0.8,
     },
     {
-      url: `${siteUrl}/team/members`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
       url: `${siteUrl}/team/faculty`,
       lastModified: currentDate,
       changeFrequency: 'monthly',

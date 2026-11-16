@@ -16,8 +16,8 @@ export default function FacultyCard({ info, isHead = false, isPast = false }) {
       whileHover={{ y: -6, scale: 1.02 }}
       transition={{ duration: 0.3 }}
       className={`group relative flex flex-col items-center text-center w-full ${
-        isHead ? 'max-w-[480px]' : 'max-w-[320px] sm:max-w-[340px]'
-      } rounded-3xl bg-white/[0.03] border p-6 sm:p-8 backdrop-blur-xl transition-all ${
+        isHead ? 'max-w-[340px] sm:max-w-[360px] lg:max-w-[380px]' : 'max-w-[320px] sm:max-w-[340px]'
+      } rounded-3xl bg-white/[0.03] border p-6 sm:p-7 backdrop-blur-xl transition-all ${
         isHead
           ? 'border-[#0ef]/50 hover:border-[#0ef] hover:bg-white/[0.06]'
           : isPast

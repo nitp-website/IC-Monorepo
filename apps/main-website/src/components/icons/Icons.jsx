@@ -31,6 +31,25 @@ export function InstagramIcon({ className = 'w-5 h-5', ...props }) {
   );
 }
 
+export function GmailIcon({ className = 'w-5 h-5', ...props }) {
+  return (
+    <svg className={className} fill="currentColor" viewBox="0 0 24 24" {...props}>
+      <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z" />
+    </svg>
+  );
+}
+
+export function GmailColoredIcon({ className = 'w-5 h-5', ...props }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" {...props}>
+      <path fill="#4285F4" d="M22.5 5.25L12 13.5 1.5 5.25V18.75c0 .825.675 1.5 1.5 1.5h1.5V10.5L12 15l7.5-4.5v9.75h1.5c.825 0 1.5-.675 1.5-1.5V5.25z" />
+      <path fill="#34A853" d="M19.5 20.25H21c.825 0 1.5-.675 1.5-1.5V5.25l-3 2.25v12.75z" />
+      <path fill="#EA4335" d="M1.5 5.25v13.5c0 .825.675 1.5 1.5 1.5h1.5V7.5l-3-2.25z" />
+      <path fill="#FBBC05" d="M22.5 5.25c0-.975-.825-1.65-1.725-1.125L12 10.5 3.225 4.125C2.325 3.6 1.5 4.275 1.5 5.25l10.5 7.5 10.5-7.5z" />
+    </svg>
+  );
+}
+
 export function FacebookIcon({ className = 'w-5 h-5', ...props }) {
   return (
     <svg className={className} fill="currentColor" viewBox="0 0 24 24" {...props}>

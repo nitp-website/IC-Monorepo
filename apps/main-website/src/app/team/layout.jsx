@@ -7,7 +7,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ChevronDownIcon, CheckIcon } from '@/components/icons';
 
 const TEAM_TABS = [
-  { label: 'Student Members', href: '/team/members' },
   { label: 'Faculty & Advisors', href: '/team/faculty' },
   { label: 'Office Bearers', href: '/team/office-bearer' },
 ];
@@ -21,8 +20,8 @@ export default function TeamLayout({ children }) {
     TEAM_TABS.find(
       (t) =>
         pathname === t.href ||
-        (pathname === '/team' && t.href === '/team/members')
-    ) || TEAM_TABS[0];
+        (pathname === '/team' && t.href === '/team/office-bearer')
+    ) || TEAM_TABS[1];
 
   return (
     <div className="min-h-screen pt-28 sm:pt-32 pb-16 bg-[#050810] opacity-95 bg-[radial-gradient(#142850_1px,#050810_1px)] [background-size:18px_18px] text-white font-['Poppins',sans-serif] select-none">
@@ -31,7 +30,7 @@ export default function TeamLayout({ children }) {
           {TEAM_TABS.map((tab) => {
             const isActive =
               pathname === tab.href ||
-              (pathname === '/team' && tab.href === '/team/members');
+              (pathname === '/team' && tab.href === '/team/office-bearer');
 
             return (
               <Link key={tab.href} href={tab.href}>
@@ -92,7 +91,7 @@ export default function TeamLayout({ children }) {
                 {TEAM_TABS.map((tab) => {
                   const isSelected =
                     pathname === tab.href ||
-                    (pathname === '/team' && tab.href === '/team/members');
+                    (pathname === '/team' && tab.href === '/team/office-bearer');
 
                   return (
                     <button

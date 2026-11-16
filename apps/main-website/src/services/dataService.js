@@ -10,7 +10,7 @@ import {
   GALLERY_IMAGES_DATA,
   FACULTY_TEAM_DATA,
   STUDENT_TEAM_DATA,
-  PAST_OFFICE_BEARERS_DATA,
+  OFFICE_BEARERS_DATA,
   FAQ_DATA,
   NAV_LINKS,
   SOCIAL_LINKS,
@@ -67,8 +67,8 @@ export async function getStudentTeam() {
   return STUDENT_TEAM_DATA;
 }
 
-export async function getPastOfficeBearers() {
-  return PAST_OFFICE_BEARERS_DATA;
+export async function getOfficeBearers() {
+  return OFFICE_BEARERS_DATA;
 }
 
 export async function getFaqs() {
