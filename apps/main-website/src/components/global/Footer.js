@@ -30,7 +30,6 @@ const FOOTER_SECTIONS = [
     links: [
       { label: 'Events & Timeline', href: '/events' },
       { label: 'Photo Gallery', href: '/gallery' },
-      { label: 'Student Team', href: '/team/members' },
       { label: 'Faculty & Advisors', href: '/team/faculty' },
       { label: 'Past Office Bearers', href: '/team/office-bearer' },
     ],
