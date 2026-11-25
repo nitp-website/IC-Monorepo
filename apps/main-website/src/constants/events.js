@@ -7,7 +7,7 @@ export const EVENTS_DATA = [
     tagline: 'Transforming Classrooms into Launchpads for Real-World Innovation',
     category: 'Workshop',
     status: 'Past',
-    date: 'Nov 2026',
+    date: '19th Nov 2026',
     //startDate: '2026-01-01',
     endDate: null,
     //time: 'TBD',
