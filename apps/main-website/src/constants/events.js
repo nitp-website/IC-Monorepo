@@ -2,6 +2,42 @@ import { CLOUDINARY_BASE_URL, pitchtember_url } from './const';
 
 export const EVENTS_DATA = [
   {
+    id: 'cbde-orientation-2026',
+    title: 'CBDE Orientation & Felicitation Programme – 3rd Cohort, AY 2026–27',
+    tagline: 'Transforming Classrooms into Launchpads for Real-World Innovation',
+    category: 'Workshop',
+    status: 'Past',
+    date: 'Nov 2026',
+    //startDate: '2026-01-01',
+    endDate: null,
+    //time: 'TBD',
+    venue: 'NIT Patna',
+    mode: 'In-Person',
+    image: 'https://res.cloudinary.com/ddb6lsyht/image/upload/v1795613922/cbde-orientation-2026_vbvbex.png', 
+    url: '/timeline',
+    description:
+      'Organised by the Incubation Centre, NIT Patna, this Orientation & Felicitation Programme welcomed the 3rd Cohort of Faculty Members (Academic Year 2026–27) under the Capacity Building on Design and Entrepreneurship (CBDE) initiative—a flagship programme of the Ministry of Education, Government of India, aligned with NEP 2020. The session brought together institutional leaders, faculty, industry mentors, and student innovators to strengthen design thinking, experiential learning, and venture creation, concluding with a felicitation ceremony honouring faculty awardees across Levels 2, 3, and 4.',
+    highlights: [
+      'Framework & Implementation: Presentation on CBDE objectives, pedagogy, and NEP 2020 alignment by Dr. Bhabani Shankar Das.',
+      'Mentorship & Strategic Direction: Guidance on bridging academic projects with sustainable ventures from CBDE mentors (Mr. Bharat G., Mr. Pratik Deo, Mr. Ram Subramanium, Mr. Sachin Patel, Dr. Arvind Kumar, Dr. Bhabani Shankar Das, Dr. Snigdhaa Majumder, and Mr. Partha Pratim Dasgupta).',
+      'Level 4 Felicitation (D&E Ecosystem Orchestration): Dr. Anil Kumar Sharma.',
+      'Level 3 Felicitation (D&E Co-Mentoring): Dr. Awadh Kishor Kumar, Dr. Devarani Devi Ningombam, Dr. Trilochan Penthia, Dr. Antriksh Goswami, and Dr. Seemanti Saha.',
+      'Level 2 Felicitation (Applied Design Pedagogy): Dr. B. K. Das, Dr. Manish Tiwari, Dr. Om Ji Shukla, Dr. Rajarshi Bhattacharya, Dr. Anmesh Kumar Srivastava, Dr. Abhay Kumar Choudhary, Dr. Bhaskar Mondal, and Dr. Ritesh Kumar.',
+    ],
+    speakers: [
+      { name: 'Prof. Bharat Gupta', role: 'Professor-In-Charge, IC NITP' },
+      { name: 'Dr. Bhabani Shankar Das', role: 'CBDE Framework & Pedagogy Presenter' },
+      { name: 'Mr. Bharat G.', role: 'CBDE Mentor' },
+      { name: 'Mr. Pratik Deo', role: 'CBDE Mentor' },
+      { name: 'Mr. Ram Subramanium', role: 'CBDE Mentor' },
+      { name: 'Mr. Sachin Patel', role: 'CBDE Mentor' },
+      { name: 'Dr. Arvind Kumar', role: 'CBDE Mentor' },
+      { name: 'Dr. Snigdhaa Majumder', role: 'CBDE Mentor' },
+      { name: 'Mr. Partha Pratim Dasgupta', role: 'CBDE Mentor' },
+    ],
+    eligibility: 'NIT Patna Faculty Members (3rd Cohort, AY 2026–27), Mentors, and CBDE Student Teams.',
+  },
+  {
     id: 'pitchverse-2026',
     title: 'Pitchverse 2026',
     tagline: 'Where Fiction Gets Funded',
